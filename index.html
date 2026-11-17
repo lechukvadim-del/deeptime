@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DeepTime.fun — Minecraft Grief сервер. Присоединяйся к игре, изучай правила и выбирай привилегии.">
+  <meta name="theme-color" content="#071b30">
+  <title>DeepTime.fun — Minecraft Grief</title>
+  <style>
+    :root { --bg:#061525; --panel:#0b243b; --panel2:#10334d; --cyan:#65e7f2; --aqua:#29c9d7; --text:#f3fbff; --muted:#a8c6d8; --line:rgba(132,224,242,.18); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--text); background:radial-gradient(ellipse at 50% -20%, #14506c 0%, transparent 48%), linear-gradient(180deg,#061525,#071d31 55%,#061525); font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    .wrap { width:min(1120px, calc(100% - 36px)); margin:auto; }
+    header { position:sticky; top:0; z-index:10; background:rgba(5,20,35,.82); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+    .nav { display:flex; align-items:center; justify-content:space-between; min-height:72px; gap:18px; }
+    .brand { display:flex; align-items:center; gap:11px; font-weight:900; letter-spacing:.4px; }
+    .logo { width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#54eff0,#168cb9);color:#062139;font-size:22px;box-shadow:0 0 28px #1eb9d644; }
+    .brand span { color:var(--cyan); }
+    nav { display:flex; gap:22px; color:var(--muted); font-size:14px; }
+    nav a:hover { color:var(--cyan); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; border:1px solid #62e7f277; border-radius:12px; padding:12px 17px; color:#052134; background:linear-gradient(135deg,#8cf4f2,#34cbdc); font-weight:800; cursor:pointer; transition:.2s; box-shadow:0 8px 25px #20bcd322; }
+    .btn:hover { transform:translateY(-2px); filter:brightness(1.06); }
+    .btn.secondary { background:#0c2b43; color:var(--text); border-color:var(--line); box-shadow:none; }
+    .hero { padding:82px 0 64px; text-align:center; position:relative; overflow:hidden; }
+    .pill { display:inline-flex; align-items:center; gap:8px; padding:8px 13px; border:1px solid var(--line); background:#0a2b40aa; border-radius:999px; color:#bceff5; font-size:13px; }
+    .dot { width:8px;height:8px;border-radius:50%;background:#4ee3a0;box-shadow:0 0 12px #4ee3a0; }
+    h1 { margin:22px 0 14px; font-size:clamp(42px,8vw,82px); line-height:.98; letter-spacing:-3px; }
+    h1 em { font-style:normal; color:var(--cyan); text-shadow:0 0 35px #35d9e533; }
+    .lead { max-width:650px; margin:0 auto 28px; color:var(--muted); font-size:clamp(16px,2vw,19px); line-height:1.7; }
+    .hero-actions { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; }
+    .server-ip { display:flex; align-items:center; justify-content:space-between; gap:14px; max-width:440px; margin:28px auto 0; padding:13px 14px 13px 19px; border:1px solid var(--line); border-radius:15px; background:#081f34; text-align:left; }
+    .server-ip small { display:block; color:var(--muted); margin-bottom:3px; }
+    .server-ip strong { font-size:17px; letter-spacing:.3px; }
+    .copy { background:#123b52; color:var(--cyan); border:1px solid var(--line); padding:10px 13px; border-radius:10px; cursor:pointer; font-weight:800; }
+    .wave { height:70px; background:linear-gradient(180deg,transparent,#0b263c88); border-top:1px solid #4bd5e41c; }
+    section { padding:58px 0; }
+    .section-head { text-align:center; margin-bottom:30px; }
+    .eyebrow { color:var(--cyan); text-transform:uppercase; letter-spacing:2px; font-size:12px; font-weight:900; }
+    h2 { font-size:clamp(28px,4vw,42px); margin:10px 0; letter-spacing:-1px; }
+    .sub { color:var(--muted); max-width:620px; margin:auto; line-height:1.7; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .card { padding:23px; border-radius:18px; border:1px solid var(--line); background:linear-gradient(145deg,#0d2b43dd,#081d30dd); }
+    .card .icon { width:46px;height:46px; display:grid;place-items:center;border-radius:14px;background:#123c51;color:var(--cyan);font-size:23px;margin-bottom:16px; }
+    .card h3 { margin:0 0 9px; font-size:19px; }
+    .card p { margin:0; color:var(--muted); line-height:1.65; font-size:14px; }
+    .ranks { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .rank { position:relative; overflow:hidden; padding:20px; border-radius:17px; background:#0a2238; border:1px solid var(--line); }
+    .rank:before { content:"";position:absolute;right:-25px;top:-35px;width:100px;height:100px;border-radius:50%;background:#35d9e41a;filter:blur(4px); }
+    .rank .tag { color:var(--cyan); font-size:11px; letter-spacing:1.6px; font-weight:900; }
+    .rank h3 { margin:10px 0 8px; font-size:21px; }
+    .rank p { color:var(--muted); font-size:13px; line-height:1.55; min-height:40px; }
+    .rank .price { color:#eafcff; font-weight:900; }
+    .rules { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .rule { display:flex; gap:13px; padding:18px; border:1px solid var(--line); border-radius:15px; background:#0a2238; }
+    .check { color:var(--cyan); font-size:20px; font-weight:900; }
+    .rule strong { display:block; margin-bottom:5px; }
+    .rule span { color:var(--muted); font-size:14px; line-height:1.55; }
+    .cta { text-align:center; border:1px solid var(--line); border-radius:24px; padding:42px 22px; background:radial-gradient(ellipse at top,#124863,#0a2137 68%); }
+    footer { border-top:1px solid var(--line); padding:25px 0; color:var(--muted); font-size:13px; }
+    .foot { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+    .toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(20px); background:#d6ffff; color:#062237; padding:11px 17px; border-radius:12px; font-weight:800; opacity:0; pointer-events:none; transition:.2s; }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    @media(max-width:800px) { nav { display:none; } .grid { grid-template-columns:1fr; } .ranks { grid-template-columns:repeat(2,1fr); } .hero { padding:65px 0 48px; } }
+    @media(max-width:520px) { .ranks,.rules { grid-template-columns:1fr; } h1 { letter-spacing:-1.5px; } .server-ip strong { font-size:15px; } .nav .btn { padding:10px 12px; font-size:13px; } }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home"><span class="logo">🌊</span><span>DEEPTIME<span>.FUN</span></span></a>
+    <nav><a href="#about">О сервере</a><a href="#features">Возможности</a><a href="#ranks">Привилегии</a><a href="#rules">Правила</a></nav>
+    <a class="btn secondary" href="#join">Играть сейчас ↗</a>
+  </div>
+</header>
+<main id="home">
+  <div class="hero">
+    <div class="wrap">
+      <div class="pill"><span class="dot"></span> MINECRAFT GRIEF · JAVA EDITION</div>
+      <h1>ПОГРУЗИСЬ<br>В <em>DEEPTIME</em></h1>
+      <p class="lead">Твой мир. Твои решения. Твоя история. Заходи на DeepTime.fun, объединяйся с друзьями и стань легендой глубин.</p>
+      <div class="hero-actions"><a class="btn" href="#join">🌊 Начать играть</a><a class="btn secondary" href="#ranks">💎 Привилегии</a></div>
+      <div class="server-ip">
+        <div><small>IP-АДРЕС СЕРВЕРА</small><strong id="ip">mc.DeepTime.fun</strong></div>
+        <button class="copy" onclick="copyIP()">Копировать</button>
+      </div>
+    </div>
+  </div>
+  <div class="wave"></div>
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Добро пожаловать</div><h2>Твои приключения начинаются здесь</h2><p class="sub">DeepTime.fun — Minecraft grief-проект с морской атмосферой. Исследуй мир, развивайся, собирай ресурсы и играй по своим правилам в рамках правил проекта.</p></div>
+      <div class="grid">
+        <article class="card"><div class="icon">⚓</div><h3>Свобода действий</h3><p>Развивайся в своём темпе, строй планы и находи собственный путь к успеху.</p></article>
+        <article class="card"><div class="icon">💎</div><h3>Прогресс и награды</h3><p>Собирай ресурсы, открывай возможности и стремись к новым достижениям.</p></article>
+        <article class="card"><div class="icon">🐬</div><h3>Играй с друзьями</h3><p>Создавай команду, участвуй в жизни сообщества и оставляй свой след в истории сервера.</p></article>
+      </div>
+    </div>
+  </section>
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Возможности</div><h2>Глубины полны открытий</h2><p class="sub">Здесь можно разместить актуальные особенности твоего сервера. Ниже — базовый пример, который можно изменить.</p></div>
+      <div class="grid">
+        <article class="card"><div class="icon">🪸</div><h3>Ивенты</h3><p>Соревнуйся с игроками и следи за анонсами событий в Discord.</p></article>
+        <article class="card"><div class="icon">🫧</div><h3>Экономика</h3><p>Используй внутриигровые возможности, чтобы развивать свой игровой прогресс.</p></article>
+        <article class="card"><div class="icon">🐚</div><h3>Сообщество</h3><p>Общайся, находи союзников и узнавай новости проекта.</p></article>
+      </div>
+    </div>
+  </section>
+  <section id="ranks">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Магазин проекта</div><h2>Выбери свою привилегию</h2><p class="sub">Цены и состав привилегий пока демонстрационные — замени их на реальные перед публикацией.</p></div>
+      <div class="ranks">
+        <article class="rank"><div class="tag">START</div><h3>Player</h3><p>Базовый доступ к игровым возможностям.</p><div class="price">Бесплатно</div></article>
+        <article class="rank"><div class="tag">OCEAN</div><h3>Triton</h3><p>Привилегия для игроков, которые хотят больше возможностей.</p><div class="price">Цена скоро</div></article>
+        <article class="rank"><div class="tag">DEEP SEA</div><h3>Kraken</h3><p>Расширенные возможности и особый статус.</p><div class="price">Цена скоро</div></article>
+        <article class="rank"><div class="tag">SUPPORT</div><h3>Sponsor</h3><p>Поддержи развитие DeepTime.fun.</p><div class="price">Цена скоро</div></article>
+      </div>
+    </div>
+  </section>
+  <section id="rules">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Честная игра</div><h2>Правила сервера</h2><p class="sub">Перед игрой ознакомься с правилами. Полный список можно добавить сюда.</p></div>
+      <div class="rules">
+        <div class="rule"><div class="check">✓</div><div><strong>Уважай игроков</strong><span>Не допускай травли, угроз и оскорблений в чате.</span></div></div>
+        <div class="rule"><div class="check">✓</div><div><strong>Без читов и эксплойтов</strong><span>Не используй запрещённые модификации и намеренно не злоупотребляй ошибками.</span></div></div>
+        <div class="rule"><div class="check">✓</div><div><strong>Без спама и рекламы</strong><span>Не засоряй чат сообщениями и не рекламируй другие проекты без разрешения.</span></div></div>
+        <div class="rule"><div class="check">✓</div><div><strong>Слушай администрацию</strong><span>Выполняй законные требования администрации и сообщай о найденных багах.</span></div></div>
+      </div>
+    </div>
+  </section>
+  <section id="join">
+    <div class="wrap"><div class="cta"><div class="eyebrow">Готов нырнуть?</div><h2>Увидимся в глубинах</h2><p class="sub" style="margin-bottom:24px">Скопируй IP и присоединяйся к DeepTime.fun!</p><button class="btn" onclick="copyIP()">📋 Скопировать IP</button><p style="color:var(--muted);font-size:13px;margin-top:18px">Discord-ссылку можно добавить в код перед публикацией.</p></div></div>
+  </section>
+</main>
+<footer><div class="wrap foot"><div>🌊 <strong style="color:var(--cyan)">DEEPTIME.FUN</strong> · Minecraft project</div><div>Не является официальным продуктом Mojang или Microsoft.</div><div>© <span id="year"></span> DeepTime.fun</div></div></footer>
+<div class="toast" id="toast">IP скопирован!</div>
+<script>
+  function copyIP() {
+    const ip = document.getElementById('ip').textContent.trim();
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(ip).then(showToast).catch(fallbackCopy);
+    } else fallbackCopy();
+    function fallbackCopy() {
+      const area = document.createElement('textarea');
+      area.value = ip; document.body.appendChild(area); area.select();
+      try { document.execCommand('copy'); showToast(); } catch(e) { alert('IP сервера: ' + ip); }
+      area.remove();
+    }
+  }
+  function showToast() {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
