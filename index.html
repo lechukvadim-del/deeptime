@@ -159,4 +159,148 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
+  
+<section class="dt-store">
+  <h2>🌊 Магазин привілеїв</h2>
+  <p>Обирай свій ранг на DeepTime.fun</p>
+
+  <div class="dt-ranks">
+    <article class="dt-rank">
+      <h3>🐬 Тритон</h3>
+      <p>Привілеї для справжніх гравців</p>
+      <strong>ЦІНА: ВКАЖИ ЦІНУ</strong>
+      <button onclick="buyRank('Тритон', 'ВКАЖИ ЦІНУ')">
+        Купити
+      </button>
+    </article>
+
+    <article class="dt-rank">
+      <h3>🔱 Посейдон</h3>
+      <p>Преміальний ранг сервера</p>
+      <strong>ЦІНА: ВКАЖИ ЦІНУ</strong>
+      <button onclick="buyRank('Посейдон', 'ВКАЖИ ЦІНУ')">
+        Купити
+      </button>
+    </article>
+
+    <article class="dt-rank">
+      <h3>🦑 Кракен</h3>
+      <p>Особливий ранг DeepTime</p>
+      <strong>ЦІНА: ВКАЖИ ЦІНУ</strong>
+      <button onclick="buyRank('Кракен', 'ВКАЖИ ЦІНУ')">
+        Купити
+      </button>
+    </article>
+  </div>
+
+  <div id="dt-payment" class="dt-payment" hidden>
+    <h3>Оплата привілеї</h3>
+    <p id="dt-selected"></p>
+    <p>1. Зроби переказ за реквізитами нижче.</p>
+    <p><b>Реквізити:</b> ДОДАЙ БЕЗПЕЧНІ РЕКВІЗИТИ</p>
+    <p>2. Вкажи свій Minecraft-нік.</p>
+    <label for="dt-nick">Minecraft-нік:</label>
+    <input id="dt-nick" maxlength="16"
+           placeholder="Твій нік">
+
+    <button onclick="sendOrder()">
+      Надіслати заявку в Telegram
+    </button>
+    <p class="dt-note">
+      Привілегія видається після перевірки надходження оплати.
+    </p>
+  </div>
+</section>
+
+<style>
+.dt-store {
+  color: #eafcff;
+  background: #071d30;
+  padding: 28px 16px;
+  border-radius: 18px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+.dt-ranks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+  max-width: 900px;
+  margin: 24px auto;
+}
+.dt-rank, .dt-payment {
+  background: #0c3047;
+  border: 1px solid #16c9c5;
+  border-radius: 14px;
+  padding: 20px;
+}
+.dt-rank strong { display: block; margin: 18px 0; }
+.dt-store button {
+  background: #16c9c5;
+  color: #062235;
+  border: 0;
+  padding: 12px 18px;
+  border-radius: 9px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 8px 0;
+}
+.dt-payment { max-width: 500px; margin: 20px auto; }
+.dt-payment input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+.dt-note { font-size: 13px; color: #b8dce8; }
+</style>
+
+<script>
+const TELEGRAM_USERNAME = "@Tommy1_70";
+
+let selectedRank = "";
+let selectedPrice = "";
+
+function buyRank(rank, price) {
+  selectedRank = rank;
+  selectedPrice = price;
+  document.getElementById("dt-selected").textContent =
+    "Привілегія: " + rank + " | Ціна: " + price;
+  document.getElementById("dt-payment").hidden = false;
+  document.getElementById("dt-payment").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+function sendOrder() {
+  const nick = document.getElementById("dt-nick").value.trim();
+
+  if (!/^[A-Za-z0-9_]{3,16}$/.test(nick)) {
+    alert("Введи правильний Minecraft-нік.");
+    return;
+  }
+
+  if (TELEGRAM_USERNAME === "ТВІЙ_TELEGRAM") {
+    alert("Спочатку вкажи свій Telegram username у коді.");
+    return;
+  }
+
+  const message =
+    "Привіт! Хочу купити привілегію DeepTime.fun." +
+    "\nРанг: " + selectedRank +
+    "\nЦіна: " + selectedPrice +
+    "\nMinecraft-нік: " + nick +
+    "\nПідтвердження оплати надішлю в чат.";
+
+  const url = "https://t.me/" +
+    TELEGRAM_USERNAME.replace(/^@/, "") +
+    "?text=" + encodeURIComponent(message);
+
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+</script>
+
 </html>
