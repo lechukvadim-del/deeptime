@@ -160,143 +160,211 @@
 </script>
 </body>
   
-<section class="dt-store">
-  <h2>🌊 Магазин привілегій</h2>
-  <p>Обирай свій ранг на DeepTime.fun</p>
-  
-<div class="dt-ranks">
-    <article class="dt-rank">
+<!-- DEEPTIME.FUN STORE -->
+<section id="dt-store">
+  <h2>🌊 Магазин привілеїв</h2>
+  <p class="dt-subtitle">Обирай свій ранг на DeepTime.fun</p>
+
+  <div class="dt-grid">
+
+    <article class="dt-card">
       <h3>🐬 Hero</h3>
-      <p>Привілеї для справжніх гравців</p>
-      <strong>ЦІНА: ВКАЖИ ЦІНУ</strong>
-      <button onclick="buyRank('Тритон', 'ВКАЖИ ЦІНУ')">
-        Купити
-      </button>
-    </article>
-  
-<div class="dt-ranks">
-    <article class="dt-rank">
-      <h3>🐬 Тритон</h3>
-      <p>Привілеї для справжніх гравців</p>
-      <strong>ЦІНА: ВКАЖИ ЦІНУ</strong>
-      <button onclick="buyRank('Тритон', 'ВКАЖИ ЦІНУ')">
-        Купити
-      </button>
+      <p>Стартовий ранг</p>
+      <strong>ВКАЖИ ЦІНУ</strong>
+      <button onclick="dtBuy('Hero','ВКАЖИ ЦІНУ')">Купити</button>
     </article>
 
-<div class="dt-ranks">
-    <article class="dt-rank">
-      <h3>🐬 Феникс</h3>
-      <p>Привілеї для справжніх гравців</p>
-      <strong>ЦІНА: ВКАЖИ ЦІНУ</strong>
-      <button onclick="buyRank('Тритон', 'ВКАЖИ ЦІНУ')">
-        Купити
-      </button>
+    <article class="dt-card">
+      <h3>🐬 Тритон</h3>
+      <p>Більше можливостей</p>
+      <strong>ВКАЖИ ЦІНУ</strong>
+      <button onclick="dtBuy('Тритон','ВКАЖИ ЦІНУ')">Купити</button>
     </article>
-      
-    <article class="dt-rank">
+
+    <article class="dt-card">
+      <h3>🐬 Фенікс</h3>
+      <p>Особливий ранг</p>
+      <strong>ВКАЖИ ЦІНУ</strong>
+      <button onclick="dtBuy('Фенікс','ВКАЖИ ЦІНУ')">Купити</button>
+    </article>
+
+    <article class="dt-card">
       <h3>🔱 Посейдон</h3>
-      <p>Преміальний ранг сервера</p>
-      <strong>ЦІНА: ВКАЖИ ЦІНУ</strong>
-      <button onclick="buyRank('Посейдон', 'ВКАЖИ ЦІНУ')">
-        Купити
-      </button>
+      <p>Преміальний ранг</p>
+      <strong>ВКАЖИ ЦІНУ</strong>
+      <button onclick="dtBuy('Посейдон','ВКАЖИ ЦІНУ')">Купити</button>
     </article>
-  
-<div class="dt-ranks">
-    <article class="dt-rank">
+
+    <article class="dt-card">
       <h3>🦑 Кракен</h3>
       <p>Особливий ранг DeepTime</p>
-      <strong>ЦІНА: ВКАЖИ ЦІНУ</strong>
-      <button onclick="buyRank('Кракен', 'ВКАЖИ ЦІНУ')">
-        Купити
-      </button>
+      <strong>ВКАЖИ ЦІНУ</strong>
+      <button onclick="dtBuy('Кракен','ВКАЖИ ЦІНУ')">Купити</button>
     </article>
+
   </div>
 
-  <div id="dt-payment" class="dt-payment" hidden>
-    <h3>Оплата привілеї</h3>
-    <p id="dt-selected"></p>
-    <p>1. Зроби переказ за реквізитами нижче.</p>
-    <p><b>Реквізити:</b> ДОДАЙ БЕЗПЕЧНІ РЕКВІЗИТИ</p>
-    <p>2. Вкажи свій Minecraft-нік.</p>
-    <label for="dt-nick">Minecraft-нік:</label>
-    <input id="dt-nick" maxlength="16"
-           placeholder="Твій нік">
+  <div id="dt-order" hidden>
+    <h3 id="dt-order-title">Оплата</h3>
+    <p id="dt-order-price"></p>
 
-    <button onclick="sendOrder()">
-      Надіслати заявку в Telegram
-    </button>
-    <p class="dt-note">
-      Привілегія видається після перевірки надходження оплати.
-    </p>
+    <p>1. Зроби переказ за реквізитами:</p>
+    <p id="dt-requisites">ТУТ ВКАЖИ РЕКВІЗИТИ ДЛЯ ОПЛАТИ</p>
+
+    <label for="dt-nick">Твій Minecraft-нік</label>
+    <input id="dt-nick" maxlength="16" placeholder="Введи нік">
+
+    <button onclick="dtSend()">Надіслати заявку</button>
+    <p>Після оплати надішли чек у Telegram. Привілегію видаємо після перевірки платежу.</p>
   </div>
 </section>
 
 <style>
-.dt-store {
+#dt-store {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 35px 20px;
   color: #eafcff;
   background: #071d30;
-  padding: 28px 16px;
   border-radius: 18px;
   text-align: center;
   font-family: Arial, sans-serif;
 }
-.dt-ranks {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 16px;
-  max-width: 900px;
-  margin: 24px auto;
+
+#dt-store * {
+  box-sizing: border-box;
 }
-.dt-rank, .dt-payment {
+
+#dt-store h2 {
+  margin: 0 0 10px;
+  font-size: clamp(25px, 3vw, 40px);
+}
+
+#dt-store .dt-subtitle {
+  margin: 0 0 28px;
+  color: #b8dce8;
+}
+
+#dt-store .dt-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+#dt-store .dt-card {
+  min-width: 0;
+  min-height: 235px;
+  padding: 24px 12px;
   background: #0c3047;
   border: 1px solid #16c9c5;
   border-radius: 14px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
-.dt-rank strong { display: block; margin: 18px 0; }
-.dt-store button {
+
+#dt-store .dt-card h3 {
+  margin: 0;
+  font-size: clamp(15px, 1.4vw, 21px);
+  white-space: nowrap;
+}
+
+#dt-store .dt-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#dt-store .dt-card strong {
+  font-size: 14px;
+}
+
+#dt-store button {
+  border: 0;
+  border-radius: 9px;
+  padding: 12px 20px;
   background: #16c9c5;
   color: #062235;
-  border: 0;
-  padding: 12px 18px;
-  border-radius: 9px;
   font-weight: bold;
   cursor: pointer;
-  margin: 8px 0;
+  white-space: nowrap;
 }
-.dt-payment { max-width: 500px; margin: 20px auto; }
-.dt-payment input {
-  display: block;
-  box-sizing: border-box;
+
+#dt-store button:hover {
+  background: #55e5dd;
+}
+
+#dt-store #dt-order {
+  max-width: 500px;
+  margin: 28px auto 0;
+  padding: 24px;
+  background: #0c3047;
+  border: 1px solid #16c9c5;
+  border-radius: 14px;
+}
+
+#dt-store #dt-order[hidden] {
+  display: none;
+}
+
+#dt-store #dt-order input {
   width: 100%;
   padding: 12px;
-  margin: 10px 0;
+  margin: 10px 0 16px;
+  border: 1px solid #16c9c5;
   border-radius: 8px;
 }
-.dt-note { font-size: 13px; color: #b8dce8; }
+
+@media (max-width: 1000px) {
+  #dt-store .dt-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  #dt-store .dt-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 380px) {
+  #dt-store .dt-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 
 <script>
-const TELEGRAM_USERNAME = "@Tommy1_70";
+const DT_TELEGRAM = "ТВІЙ_TELEGRAM";
 
-let selectedRank = "";
-let selectedPrice = "";
+let dtRank = "";
+let dtPrice = "";
 
-function buyRank(rank, price) {
-  selectedRank = rank;
-  selectedPrice = price;
-  document.getElementById("dt-selected").textContent =
-    "Привілегія: " + rank + " | Ціна: " + price;
-  document.getElementById("dt-payment").hidden = false;
-  document.getElementById("dt-payment").scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
+function dtBuy(rank, price) {
+  dtRank = rank;
+  dtPrice = price;
+
+  document.getElementById("dt-order-title").textContent =
+    "Купівля: " + rank;
+
+  document.getElementById("dt-order-price").textContent =
+    "Ціна: " + price;
+
+  const order = document.getElementById("dt-order");
+  order.hidden = false;
+  order.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
-function sendOrder() {
+function dtSend() {
   const nick = document.getElementById("dt-nick").value.trim();
 
   if (!/^[A-Za-z0-9_]{3,16}$/.test(nick)) {
@@ -304,24 +372,26 @@ function sendOrder() {
     return;
   }
 
-  if (TELEGRAM_USERNAME === "ТВІЙ_TELEGRAM") {
-    alert("Спочатку вкажи свій Telegram username у коді.");
+  if (DT_TELEGRAM === "ТВІЙ_TELEGRAM") {
+    alert("Вкажи свій Telegram username у коді.");
     return;
   }
 
   const message =
-    "Привіт! Хочу купити привілегію DeepTime.fun." +
-    "\nРанг: " + selectedRank +
-    "\nЦіна: " + selectedPrice +
+    "Заявка DeepTime.fun" +
+    "\nПривілегія: " + dtRank +
+    "\nЦіна: " + dtPrice +
     "\nMinecraft-нік: " + nick +
-    "\nПідтвердження оплати надішлю в чат.";
+    "\nЧек надішлю для перевірки оплати.";
 
-  const url = "https://t.me/" +
-    TELEGRAM_USERNAME.replace(/^@/, "") +
-    "?text=" + encodeURIComponent(message);
-
-  window.open(url, "_blank", "noopener,noreferrer");
+  window.open(
+    "https://t.me/" +
+    DT_TELEGRAM.replace(/^@/, "") +
+    "?text=" + encodeURIComponent(message),
+    "_blank",
+    "noopener,noreferrer"
+  );
 }
 </script>
+<!-- END DEEPTIME.FUN STORE -->
 
-</html>
